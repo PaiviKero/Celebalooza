@@ -1,26 +1,17 @@
+import { useContext } from "react";
 import { StyleSheet, Text, View, FlatList } from "react-native";
 
+import { RewardListContext } from "../services/reward-list.context";
+
 export const RewardListScreen = () => {
+  const { rewardList } = useContext(RewardListContext);
+
   return (
     <View style={styles.container}>
       <Text>List of Rewards:</Text>
       <FlatList
-        data={[
-          { key: "Go eat out" },
-          { key: "Buy something nice" },
-          { key: "Cook your favorite meal" },
-          { key: "Eat a bit of ice-cream" },
-          { key: "Eat a bit of chocolate" },
-          { key: "Take a nap" },
-          { key: "Take a bath" },
-          { key: "Watch your favorite Netflix series" },
-          { key: "Watch a movie" },
-          { key: "Read a book" },
-          { key: "Do a nonogram" },
-          { key: "Go for a walk" },
-          { key: "Go for a bike ride / swim" },
-        ]}
-        renderItem={({ item }) => <Text style={styles.titem}> {item.key}</Text>}
+        data={rewardList}
+        renderItem={({ item }) => <Text style={styles.item}> {item.key}</Text>}
       />
     </View>
   );
@@ -33,5 +24,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  item: {
+    backgroundColor: "#FFE5B4",
+    padding: 3,
+    marginVertical: 3,
+    marginHorizontal: 16,
   },
 });
