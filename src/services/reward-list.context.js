@@ -24,6 +24,8 @@ export const RewardListContextProvider = ({ children }) => {
     { key: "Eat a protein bar" },
     { key: "Listen to a song" },
     { key: "Dance a bit" },
+    { key: "Relax in the warmth of the sun" },
+    { key: "Stretch a bit" },
   ]);
 
   const add = (reward) => {

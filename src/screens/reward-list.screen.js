@@ -1,5 +1,7 @@
 import { useContext } from "react";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import { Text, FlatList } from "react-native";
+
+import { RewardView, RewardItem } from "../styles/reward.styles";
 
 import { RewardListContext } from "../services/reward-list.context";
 
@@ -7,28 +9,12 @@ export const RewardListScreen = () => {
   const { rewardList } = useContext(RewardListContext);
 
   return (
-    <View style={styles.container}>
+    <RewardView>
       <Text>List of Rewards:</Text>
       <FlatList
         data={rewardList}
-        renderItem={({ item }) => <Text style={styles.item}> {item.key}</Text>}
+        renderItem={({ item }) => <RewardItem>{item.key}</RewardItem>}
       />
-    </View>
+    </RewardView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: "8%",
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  item: {
-    backgroundColor: "#FFE5B4",
-    padding: 3,
-    marginVertical: 3,
-    marginHorizontal: 16,
-  },
-});
