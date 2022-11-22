@@ -38,12 +38,27 @@ export const RewardListContextProvider = ({ children }) => {
     setRewardList(newRewardList);
   };
 
+  const getRandom = () => {
+    const randomIndex = Math.floor(Math.random() * rewardList.length);
+    return rewardList[randomIndex].key;
+  };
+
+  const getRandomOrNo = () => {
+    if (Math.random() > 0.25) {
+      return getRandom();
+    } else {
+      return "This time your reward is the joy of job well done!";
+    }
+  };
+
   return (
     <RewardListContext.Provider
       value={{
         rewardList,
         addToList: add,
         removeFromList: remove,
+        getRandomReward: getRandom,
+        getRandomOrNoReward: getRandomOrNo,
       }}
     >
       {children}

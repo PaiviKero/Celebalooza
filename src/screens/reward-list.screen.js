@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { Text, FlatList, Button } from "react-native";
 
 import {
-  RewardView,
+  RewardListView,
   RewardItem,
   RewardInput,
   RowContainer,
@@ -16,7 +16,7 @@ export const RewardListScreen = () => {
   const [reward, setReward] = useState("");
 
   return (
-    <RewardView>
+    <RewardListView>
       <RowContainer>
         <RewardInput
           label="New Reward"
@@ -37,6 +37,6 @@ export const RewardListScreen = () => {
           </RowContainer>
         )}
       />
-    </RewardView>
+    </RewardListView>
   );
 };
