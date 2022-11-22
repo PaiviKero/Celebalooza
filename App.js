@@ -1,13 +1,10 @@
-import { RewardListScreen } from "./src/screens/reward-list.screen";
-
-import { RewardListContextProvider } from "./src/services/reward-list.context";
+import { NavigationContainer } from "@react-navigation/native";
+import { AppNavigator } from "./src/navigation/app.navigator";
 
 export default function App() {
   return (
-    <>
-      <RewardListContextProvider>
-        <RewardListScreen />
-      </RewardListContextProvider>
-    </>
+    <NavigationContainer>
+      <AppNavigator />
+    </NavigationContainer>
   );
 }
