@@ -32,11 +32,18 @@ export const RewardListContextProvider = ({ children }) => {
     setRewardList([...rewardList, { key: reward }]);
   };
 
+  const remove = (reward) => {
+    const newRewardList = rewardList.filter((x) => x.key !== reward);
+
+    setRewardList(newRewardList);
+  };
+
   return (
     <RewardListContext.Provider
       value={{
         rewardList,
         addToList: add,
+        removeFromList: remove,
       }}
     >
       {children}

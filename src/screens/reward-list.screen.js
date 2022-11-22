@@ -11,7 +11,8 @@ import {
 import { RewardListContext } from "../services/reward-list.context";
 
 export const RewardListScreen = () => {
-  const { rewardList, addToList } = useContext(RewardListContext);
+  const { rewardList, addToList, removeFromList } =
+    useContext(RewardListContext);
   const [reward, setReward] = useState("");
 
   return (
@@ -29,7 +30,12 @@ export const RewardListScreen = () => {
       <Text>List of Rewards:</Text>
       <FlatList
         data={rewardList}
-        renderItem={({ item }) => <RewardItem>{item.key}</RewardItem>}
+        renderItem={({ item }) => (
+          <RowContainer>
+            <RewardItem>{item.key}</RewardItem>
+            <Button onPress={() => removeFromList(item.key)} title="X" />
+          </RowContainer>
+        )}
       />
     </RewardView>
   );
