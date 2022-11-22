@@ -1,15 +1,31 @@
-import { useContext } from "react";
-import { Text, FlatList } from "react-native";
+import { useContext, useState } from "react";
+import { Text, FlatList, Button } from "react-native";
 
-import { RewardView, RewardItem } from "../styles/reward.styles";
+import {
+  RewardView,
+  RewardItem,
+  RewardInput,
+  RowContainer,
+} from "../styles/reward.styles";
 
 import { RewardListContext } from "../services/reward-list.context";
 
 export const RewardListScreen = () => {
-  const { rewardList } = useContext(RewardListContext);
+  const { rewardList, addToList } = useContext(RewardListContext);
+  const [reward, setReward] = useState("");
 
   return (
     <RewardView>
+      <RowContainer>
+        <RewardInput
+          label="New Reward"
+          value={reward}
+          onChangeText={(t) => {
+            setReward(t);
+          }}
+        />
+        <Button onPress={() => addToList(reward)} title="Add" />
+      </RowContainer>
       <Text>List of Rewards:</Text>
       <FlatList
         data={rewardList}

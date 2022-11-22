@@ -29,7 +29,7 @@ export const RewardListContextProvider = ({ children }) => {
   ]);
 
   const add = (reward) => {
-    setRewardList([...rewardList, reward]);
+    setRewardList([...rewardList, { key: reward }]);
   };
 
   return (
