@@ -6,6 +6,8 @@ import {
   RewardItem,
   RewardInput,
   RowContainer,
+  AddButton,
+  RemoveButton,
 } from "../styles/reward.styles";
 
 import { RewardListContext } from "../services/reward-list.context";
@@ -25,7 +27,7 @@ export const RewardListScreen = () => {
             setReward(t);
           }}
         />
-        <Button onPress={() => addToList(reward)} title="Add" />
+        <AddButton onPress={() => addToList(reward)} title="Add" />
       </RowContainer>
       <Text>List of Rewards:</Text>
       <FlatList
@@ -33,7 +35,7 @@ export const RewardListScreen = () => {
         renderItem={({ item }) => (
           <RowContainer>
             <RewardItem>{item.key}</RewardItem>
-            <Button onPress={() => removeFromList(item.key)} title="X" />
+            <RemoveButton onPress={() => removeFromList(item.key)} />
           </RowContainer>
         )}
       />

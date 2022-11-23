@@ -1,9 +1,9 @@
 import { useContext, useState } from "react";
-import { Button, Text } from "react-native";
+import { Text } from "react-native";
 
 import { RewardListContext } from "../services/reward-list.context";
 
-import { RewardView, RewardItem } from "../styles/reward.styles";
+import { RewardView, RewardItem, RewardButton } from "../styles/reward.styles";
 import { Spacer } from "../components/spacer-component";
 
 export const RewardScreen = () => {
@@ -14,13 +14,13 @@ export const RewardScreen = () => {
   return (
     <RewardView>
       <Spacer size="xxl">
-        <Button
+        <RewardButton
           onPress={() => setReward(getRandomOrNoReward())}
           title="I'm done! Is there a Reward ???"
         />
       </Spacer>
       <Spacer size="large">
-        <Button
+        <RewardButton
           onPress={() => setReward(getRandomReward())}
           title="I'm done! Give me a Reward!"
         />
