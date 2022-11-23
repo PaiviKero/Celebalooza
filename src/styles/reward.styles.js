@@ -42,9 +42,13 @@ export const RowContainer = styled.View`
   flex-direction: row;
 `;
 
-export const RewardButton = styled(Button)``;
+export const RewardButton = styled(Button).attrs({
+  color: colors.ui.secondary,
+})``;
 
-export const AddButton = styled(Button)``;
+export const AddButton = styled(Button).attrs({
+  color: colors.ui.secondary,
+})``;
 
 export const RemoveButton = styled(IconButton).attrs({
   mode: "contained",
