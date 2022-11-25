@@ -12,7 +12,7 @@ export const RewardListContextProvider = ({ children }) => {
     setRewardList([
       { key: "Go eat out" },
       { key: "Buy something nice" },
-      /*  { key: "Cook your favorite meal" },
+      { key: "Cook your favorite meal" },
       { key: "Eat a bit of ice-cream" },
       { key: "Eat a bit of chocolate" },
       { key: "Take a nap" },
@@ -32,7 +32,6 @@ export const RewardListContextProvider = ({ children }) => {
       { key: "Dance a bit" },
       { key: "Relax in the warmth of the sun" },
       { key: "Stretch a bit" },
-      */
     ]);
   };
 
@@ -105,6 +104,7 @@ export const RewardListContextProvider = ({ children }) => {
         removeFromList: remove,
         getRandomReward: getRandom,
         getRandomOrNoReward: getRandomOrNo,
+        resetToDefault: setDefaultRewardList,
       }}
     >
       {children}

@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Text, FlatList, Button } from "react-native";
+import { FlatList } from "react-native";
 
 import {
   RewardListView,
@@ -8,12 +8,15 @@ import {
   RowContainer,
   AddButton,
   RemoveButton,
+  RewardButton,
+  TextItem,
 } from "../styles/reward.styles";
+import { Spacer } from "../components/spacer-component";
 
 import { RewardListContext } from "../services/reward-list.context";
 
 export const RewardListScreen = () => {
-  const { rewardList, addToList, removeFromList } =
+  const { rewardList, addToList, removeFromList, resetToDefault } =
     useContext(RewardListContext);
   const [reward, setReward] = useState("");
 
@@ -29,7 +32,15 @@ export const RewardListScreen = () => {
         />
         <AddButton onPress={() => addToList(reward)} title="Add" />
       </RowContainer>
-      <Text>List of Rewards:</Text>
+      <Spacer variant="small">
+        <RowContainer>
+          <TextItem>List of Rewards:</TextItem>
+          <RewardButton
+            onPress={() => resetToDefault()}
+            title="Reset to Defaults"
+          />
+        </RowContainer>
+      </Spacer>
       <FlatList
         data={rewardList}
         renderItem={({ item }) => (

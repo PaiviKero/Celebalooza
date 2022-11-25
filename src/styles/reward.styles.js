@@ -32,6 +32,11 @@ export const RewardItem = styled(Text)`
   width: 85%;
 `;
 
+export const TextItem = styled(Text)`
+  margin-top: 7px;
+  width: 50%;
+`;
+
 export const RewardInput = styled(TextInput)`
   padding-left: 5px;
   background-color: ${(props) => colors.ui.primary};
