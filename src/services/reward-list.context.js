@@ -6,58 +6,80 @@ export const RewardListContext = createContext();
 
 export const RewardListContextProvider = ({ children }) => {
   const { user } = useContext(AuthenticationContext);
-  const [rewardList, setRewardList] = useState(null);
+  const [rewardLists, setRewardLists] = useState({});
+  const rewardTypes = {
+    Nice: "nice",
+    Good: "good",
+    Great: "great",
+    Special: "special",
+  };
+  const rewardSlots = {
+    NoReward: 25, // 25% chance (0-25)
+    NiceReward: 75, // 50% change (25-75)
+    GoodReward: 95, // 20% change (75-95)
+    GreatReward: 100, // 5% change (95-100)
+  };
 
-  const setDefaultRewardList = () => {
-    setRewardList([
-      { key: "Go eat out" },
-      { key: "Buy something nice" },
-      { key: "Cook your favorite meal" },
-      { key: "Eat a bit of ice-cream" },
-      { key: "Eat a bit of chocolate" },
-      { key: "Take a nap" },
-      { key: "Take a bath" },
-      { key: "Watch your favorite Netflix series" },
-      { key: "Watch a movie" },
-      { key: "Read a book" },
-      { key: "Do a nonogram" },
-      { key: "Go for a walk" },
-      { key: "Go for a bike ride / swim" },
-      { key: "Have a glass of smoothie" },
-      { key: "Have a glass of juice" },
-      { key: "Have a cup of yummy tea" },
-      { key: "Eat a fruit" },
-      { key: "Eat a protein bar" },
-      { key: "Listen to a song" },
-      { key: "Dance a bit" },
-      { key: "Relax in the warmth of the sun" },
-      { key: "Stretch a bit" },
-    ]);
+  const setDefaultRewardLists = () => {
+    setRewardLists({
+      [rewardTypes.Nice]: [
+        { key: "Read a book" },
+        { key: "Do a nonogram" },
+        { key: "Go for a walk" },
+        { key: "Go for a bike ride / swim" },
+        { key: "Have a glass of smoothie" },
+        { key: "Have a glass of juice" },
+        { key: "Have a cup of yummy tea" },
+        { key: "Eat a fruit" },
+        { key: "Eat a protein bar" },
+        { key: "Listen to a song" },
+        { key: "Dance a bit" },
+        { key: "Relax in the warmth of the sun" },
+        { key: "Stretch a bit" },
+        { key: "Take a nap" },
+      ],
+      [rewardTypes.Good]: [
+        { key: "Cook your favorite meal" },
+        { key: "Eat a bit of ice-cream" },
+        { key: "Eat a bit of chocolate" },
+        { key: "Take a bath" },
+        { key: "Watch your favorite Netflix series" },
+        { key: "Watch a movie" },
+      ],
+
+      [rewardTypes.Great]: [
+        { key: "Go eat out" },
+        { key: "Buy something nice" },
+      ],
+      [rewardTypes.Special]: [{ key: "Book a Vacation" }],
+    });
+
+    console.debug("setting: " + Object.keys(rewardLists));
   };
 
   useEffect(() => {
-    const saveRewardList = async () => {
+    const saveRewardList = async (list) => {
       try {
-        const saveKey = "@rewardlist-" + user;
-        const saveValue = JSON.stringify(rewardList);
+        const saveKey = "@rewardlists-" + user;
+        const saveValue = JSON.stringify(rewardLists);
         await AsyncStorage.setItem(saveKey, saveValue);
       } catch (e) {
         console.error("error storing reward list");
       }
     };
 
-    if (user && rewardList !== null) {
-      saveRewardList(rewardList);
+    if (user && rewardLists !== null) {
+      saveRewardList(rewardLists);
     }
-  }, [rewardList, user]);
+  }, [rewardLists, user]);
 
   useEffect(() => {
     const loadRewardList = async () => {
       try {
-        const loadKey = "@rewardlist-" + user;
+        const loadKey = "@rewardlists-" + user;
         const loadValue = await AsyncStorage.getItem(loadKey);
         if (loadValue !== "null") {
-          setRewardList(JSON.parse(loadValue));
+          setRewardLists(JSON.parse(loadValue));
         }
       } catch (e) {
         console.error("error loading reward list");
@@ -69,42 +91,58 @@ export const RewardListContextProvider = ({ children }) => {
     }
   }, [user]);
 
-  const add = (reward) => {
-    if (rewardList === null) {
-      setRewardList([{ key: reward }]);
+  const add = (rewardType, reward) => {
+    if (rewardLists[rewardType] === null) {
+      setRewardLists({ ...rewardLists, [rewardType]: [{ key: reward }] });
     } else {
-      setRewardList([...rewardList, { key: reward }]);
+      setRewardLists({
+        ...rewardLists,
+        [rewardType]: [...rewardLists[rewardType], { key: reward }],
+      });
     }
   };
 
-  const remove = (reward) => {
-    const newRewardList = rewardList.filter((x) => x.key !== reward);
+  const remove = (rewardType, reward) => {
+    const newRewardList = rewardLists[rewardType].filter(
+      (x) => x.key !== reward
+    );
 
-    setRewardList(newRewardList);
+    setRewardLists({ ...rewardLists, [rewardType]: newRewardList });
   };
 
-  const getRandom = () => {
-    const randomIndex = Math.floor(Math.random() * rewardList.length);
-    return rewardList[randomIndex].key;
+  const getRandom = (rewardType) => {
+    if (!rewardType) {
+      rewardType = rewardTypes.Nice;
+    }
+    const randomIndex = Math.floor(
+      Math.random() * rewardLists[rewardType].length
+    );
+    return rewardLists[rewardType][randomIndex].key;
   };
 
   const getRandomOrNo = () => {
-    if (Math.random() > 0.25) {
-      return getRandom();
-    } else {
+    const rewardSlot = Math.random();
+    if (rewardSlot < rewardSlots.NoReward / 100) {
       return "This time your reward is the joy of job well done!";
+    } else if (rewardSlot < rewardSlots.NiceReward / 100) {
+      return getRandom(rewardTypes.Nice);
+    } else if (rewardSlot < rewardSlots.GoodReward / 100) {
+      return getRandom(rewardTypes.Good);
+    } else {
+      return getRandom(rewardTypes.Great);
     }
   };
 
   return (
     <RewardListContext.Provider
       value={{
-        rewardList,
+        rewardTypes,
+        rewardLists,
         addToList: add,
         removeFromList: remove,
         getRandomReward: getRandom,
         getRandomOrNoReward: getRandomOrNo,
-        resetToDefault: setDefaultRewardList,
+        resetToDefault: setDefaultRewardLists,
       }}
     >
       {children}

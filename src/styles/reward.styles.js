@@ -33,8 +33,7 @@ export const RewardItem = styled(Text)`
 `;
 
 export const TextItem = styled(Text)`
-  margin-top: 7px;
-  width: 50%;
+  margin-top: 5px;
 `;
 
 export const RewardInput = styled(TextInput)`

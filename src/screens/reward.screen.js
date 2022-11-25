@@ -22,7 +22,7 @@ export const RewardScreen = () => {
       <Spacer size="large">
         <RewardButton
           onPress={() => setReward(getRandomReward())}
-          title="I'm done! Give me a Reward!"
+          title="I'm done! Give me a Nice Reward!"
         />
       </Spacer>
       <Spacer size="xxl">
