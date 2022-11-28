@@ -23,6 +23,7 @@ export const RewardListScreen = ({ route }) => {
     addToList,
     removeFromList,
     resetToDefault,
+    clearLists,
   } = useContext(RewardListContext);
   const [reward, setReward] = useState("");
 
@@ -32,6 +33,7 @@ export const RewardListScreen = ({ route }) => {
         onPress={() => resetToDefault()}
         title="Reset All Lists to Defaults"
       />
+      <RewardButton onPress={() => clearLists()} title="Clear All Lists" />
       <Spacer variant="small">
         <TextItem>List of {rewardType} Rewards:</TextItem>
       </Spacer>
@@ -50,7 +52,9 @@ export const RewardListScreen = ({ route }) => {
       </RowContainer>
       {
         <FlatList
-          data={rewardLists[rewardTypes[rewardType]]}
+          data={
+            rewardLists !== null ? rewardLists[rewardTypes[rewardType]] : []
+          }
           renderItem={({ item }) => (
             <RowContainer>
               <RewardItem>{item.key}</RewardItem>

@@ -56,6 +56,15 @@ export const RewardListContextProvider = ({ children }) => {
     });
   };
 
+  const clearRewardLists = () => {
+    setRewardLists({
+      [rewardTypes.Nice]: [],
+      [rewardTypes.Good]: [],
+      [rewardTypes.Great]: [],
+      [rewardTypes.Special]: [],
+    });
+  };
+
   useEffect(() => {
     const saveRewardList = async (list) => {
       try {
@@ -91,7 +100,9 @@ export const RewardListContextProvider = ({ children }) => {
   }, [user]);
 
   const add = (rewardType, reward) => {
-    if (rewardLists[rewardType] === null) {
+    if (!rewardLists) {
+      setRewardLists({ [rewardType]: [{ key: reward }] });
+    } else if (!rewardLists[rewardType]) {
       setRewardLists({ ...rewardLists, [rewardType]: [{ key: reward }] });
     } else {
       setRewardLists({
@@ -142,6 +153,7 @@ export const RewardListContextProvider = ({ children }) => {
         getRandomReward: getRandom,
         getRandomOrNoReward: getRandomOrNo,
         resetToDefault: setDefaultRewardLists,
+        clearLists: clearRewardLists,
       }}
     >
       {children}
