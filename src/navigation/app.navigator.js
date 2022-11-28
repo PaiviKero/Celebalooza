@@ -5,10 +5,12 @@ import { Ionicons } from "@expo/vector-icons";
 import { RewardListContextProvider } from "../services/reward-list.context";
 import { RewardListNavigator } from "../navigation/reward-list.navigator";
 import { RewardScreen } from "../screens/reward.screen";
+import { SettingsScreen } from "../screens/settings.screen";
 
 const TAB_ICON = {
   Rewards: "happy",
   RewardList: "list",
+  Settings: "settings",
 };
 
 const Tab = createBottomTabNavigator();
@@ -41,6 +43,11 @@ export const AppNavigator = () => {
           name="RewardList"
           options={{ headerShown: false }}
           component={RewardListNavigator}
+        />
+        <Tab.Screen
+          name="Settings"
+          options={{ headerShown: false }}
+          component={SettingsScreen}
         />
       </Tab.Navigator>
     </RewardListContextProvider>

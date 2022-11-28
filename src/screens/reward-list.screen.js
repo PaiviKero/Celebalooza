@@ -8,7 +8,6 @@ import {
   RowContainer,
   AddButton,
   RemoveButton,
-  RewardButton,
   TextItem,
 } from "../styles/reward.styles";
 import { Spacer } from "../components/spacer-component";
@@ -17,23 +16,12 @@ import { RewardListContext } from "../services/reward-list.context";
 
 export const RewardListScreen = ({ route }) => {
   const { rewardType } = route.params;
-  const {
-    rewardTypes,
-    rewardLists,
-    addToList,
-    removeFromList,
-    resetToDefault,
-    clearLists,
-  } = useContext(RewardListContext);
+  const { rewardTypes, rewardLists, addToList, removeFromList } =
+    useContext(RewardListContext);
   const [reward, setReward] = useState("");
 
   return (
     <RewardListView>
-      <RewardButton
-        onPress={() => resetToDefault()}
-        title="Reset All Lists to Defaults"
-      />
-      <RewardButton onPress={() => clearLists()} title="Clear All Lists" />
       <Spacer variant="small">
         <TextItem>List of {rewardType} Rewards:</TextItem>
       </Spacer>
