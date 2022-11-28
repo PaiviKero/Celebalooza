@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 
 import { RewardListContextProvider } from "../services/reward-list.context";
-import { RewardListScreen } from "../screens/reward-list.screen";
+import { RewardListNavigator } from "../navigation/reward-list.navigator";
 import { RewardScreen } from "../screens/reward.screen";
 
 const TAB_ICON = {
@@ -40,7 +40,7 @@ export const AppNavigator = () => {
         <Tab.Screen
           name="RewardList"
           options={{ headerShown: false }}
-          component={RewardListScreen}
+          component={RewardListNavigator}
         />
       </Tab.Navigator>
     </RewardListContextProvider>

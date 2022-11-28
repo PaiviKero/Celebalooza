@@ -7,7 +7,7 @@ import { colors } from "./colors";
 
 export const RewardListView = styled.View`
   flex: 1;
-  margin-top: 8%;
+  padding-top: 4%;
   background-color: ${(props) => colors.bg};
   align-items: center;
   align-self: center;

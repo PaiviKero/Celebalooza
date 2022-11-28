@@ -15,7 +15,8 @@ import { Spacer } from "../components/spacer-component";
 
 import { RewardListContext } from "../services/reward-list.context";
 
-export const RewardListScreen = () => {
+export const RewardListScreen = ({ route }) => {
+  const { rewardType } = route.params;
   const {
     rewardTypes,
     rewardLists,
@@ -29,45 +30,39 @@ export const RewardListScreen = () => {
     <RewardListView>
       <RewardButton
         onPress={() => resetToDefault()}
-        title="Reset to Defaults"
+        title="Reset All Lists to Defaults"
       />
-      {Object.keys(rewardTypes).map((rewardType) => {
-        return (
-          <>
-            <Spacer variant="small">
-              <TextItem>List of {rewardType} Rewards:</TextItem>
-            </Spacer>
+      <Spacer variant="small">
+        <TextItem>List of {rewardType} Rewards:</TextItem>
+      </Spacer>
+      <RowContainer>
+        <RewardInput
+          label="New Reward"
+          value={reward}
+          onChangeText={(t) => {
+            setReward(t);
+          }}
+        />
+        <AddButton
+          onPress={() => addToList(rewardTypes[rewardType], reward)}
+          title="Add"
+        />
+      </RowContainer>
+      {
+        <FlatList
+          data={rewardLists[rewardTypes[rewardType]]}
+          renderItem={({ item }) => (
             <RowContainer>
-              <RewardInput
-                label="New Reward"
-                value={reward}
-                onChangeText={(t) => {
-                  setReward(t);
-                }}
-              />
-              <AddButton
-                onPress={() => addToList(rewardTypes[rewardType], reward)}
-                title="Add"
+              <RewardItem>{item.key}</RewardItem>
+              <RemoveButton
+                onPress={() =>
+                  removeFromList(rewardTypes[rewardType], item.key)
+                }
               />
             </RowContainer>
-            {
-              <FlatList
-                data={rewardLists[rewardTypes[rewardType]]}
-                renderItem={({ item }) => (
-                  <RowContainer>
-                    <RewardItem>{item.key}</RewardItem>
-                    <RemoveButton
-                      onPress={() =>
-                        removeFromList(rewardTypes[rewardType], item.key)
-                      }
-                    />
-                  </RowContainer>
-                )}
-              />
-            }
-          </>
-        );
-      })}
+          )}
+        />
+      }
     </RewardListView>
   );
 };

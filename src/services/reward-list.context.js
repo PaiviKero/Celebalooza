@@ -6,7 +6,7 @@ export const RewardListContext = createContext();
 
 export const RewardListContextProvider = ({ children }) => {
   const { user } = useContext(AuthenticationContext);
-  const [rewardLists, setRewardLists] = useState({});
+  const [rewardLists, setRewardLists] = useState(null);
   const rewardTypes = {
     Nice: "nice",
     Good: "good",
@@ -21,6 +21,7 @@ export const RewardListContextProvider = ({ children }) => {
   };
 
   const setDefaultRewardLists = () => {
+    setRewardLists(null);
     setRewardLists({
       [rewardTypes.Nice]: [
         { key: "Read a book" },
@@ -53,8 +54,6 @@ export const RewardListContextProvider = ({ children }) => {
       ],
       [rewardTypes.Special]: [{ key: "Book a Vacation" }],
     });
-
-    console.debug("setting: " + Object.keys(rewardLists));
   };
 
   useEffect(() => {
