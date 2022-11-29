@@ -3,11 +3,16 @@ import { Text } from "react-native";
 
 import { RewardListContext } from "../services/reward-list.context";
 
-import { RewardView, RewardItem, RewardButton } from "../styles/reward.styles";
+import {
+  RewardView,
+  RewardItem,
+  RewardButton,
+  SpecialRewardButton,
+} from "../styles/reward.styles";
 import { Spacer } from "../components/spacer-component";
 
 export const RewardScreen = () => {
-  const { getRandomReward, getRandomOrNoReward } =
+  const { getRandomReward, getRandomOrNoReward, getSpecialReward } =
     useContext(RewardListContext);
   const [reward, setReward] = useState("");
 
@@ -23,6 +28,12 @@ export const RewardScreen = () => {
         <RewardButton
           onPress={() => setReward(getRandomReward())}
           title="I'm done! Give me a Nice Reward!"
+        />
+      </Spacer>
+      <Spacer size="large">
+        <SpecialRewardButton
+          onPress={() => setReward(getSpecialReward())}
+          title="I achieved something amazing today! I deserve a Special Reward!"
         />
       </Spacer>
       <Spacer size="xxl">

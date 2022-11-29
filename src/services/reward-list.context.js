@@ -143,6 +143,14 @@ export const RewardListContextProvider = ({ children }) => {
     }
   };
 
+  const getSpecial = () => {
+    if (Math.random() > 0.75) {
+      return getRandom(rewardTypes.Great);
+    } else {
+      return getRandom(rewardTypes.Special);
+    }
+  };
+
   return (
     <RewardListContext.Provider
       value={{
@@ -154,6 +162,7 @@ export const RewardListContextProvider = ({ children }) => {
         getRandomOrNoReward: getRandomOrNo,
         resetToDefault: setDefaultRewardLists,
         clearLists: clearRewardLists,
+        getSpecialReward: getSpecial,
       }}
     >
       {children}

@@ -50,6 +50,10 @@ export const RewardButton = styled(Button).attrs({
   color: colors.ui.secondary,
 })``;
 
+export const SpecialRewardButton = styled(Button).attrs({
+  color: colors.ui.tertiary,
+})``;
+
 export const AddButton = styled(Button).attrs({
   color: colors.ui.secondary,
 })``;
