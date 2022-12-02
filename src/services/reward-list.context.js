@@ -2,16 +2,17 @@ import { createContext, useState, useEffect, useContext } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { AuthenticationContext } from "./authentication.context";
+import { strings } from "./strings";
 export const RewardListContext = createContext();
 
 export const RewardListContextProvider = ({ children }) => {
   const { user } = useContext(AuthenticationContext);
   const [rewardLists, setRewardLists] = useState(null);
   const rewardTypes = {
-    Nice: "nice",
-    Good: "good",
-    Great: "great",
-    Special: "special",
+    NICE: "nice",
+    GOOD: "good",
+    GREAT: "great",
+    SPECIAL: "special",
   };
   const rewardSlots = {
     NoReward: 25, // 25% chance (0-25)
@@ -23,7 +24,7 @@ export const RewardListContextProvider = ({ children }) => {
   const setDefaultRewardLists = () => {
     setRewardLists(null);
     setRewardLists({
-      [rewardTypes.Nice]: [
+      [rewardTypes.NICE]: [
         { key: "Read a book" },
         { key: "Do a nonogram" },
         { key: "Go for a walk" },
@@ -39,7 +40,7 @@ export const RewardListContextProvider = ({ children }) => {
         { key: "Stretch a bit" },
         { key: "Take a nap" },
       ],
-      [rewardTypes.Good]: [
+      [rewardTypes.GOOD]: [
         { key: "Cook your favorite meal" },
         { key: "Eat a bit of ice-cream" },
         { key: "Eat a bit of chocolate" },
@@ -48,20 +49,20 @@ export const RewardListContextProvider = ({ children }) => {
         { key: "Watch a movie" },
       ],
 
-      [rewardTypes.Great]: [
+      [rewardTypes.GREAT]: [
         { key: "Go eat out" },
         { key: "Buy something nice" },
       ],
-      [rewardTypes.Special]: [{ key: "Book a Vacation" }],
+      [rewardTypes.SPECIAL]: [{ key: "Book a Vacation" }],
     });
   };
 
   const clearRewardLists = () => {
     setRewardLists({
-      [rewardTypes.Nice]: [],
-      [rewardTypes.Good]: [],
-      [rewardTypes.Great]: [],
-      [rewardTypes.Special]: [],
+      [rewardTypes.NICE]: [],
+      [rewardTypes.GOOD]: [],
+      [rewardTypes.GREAT]: [],
+      [rewardTypes.SPECIAL]: [],
     });
   };
 
@@ -122,7 +123,7 @@ export const RewardListContextProvider = ({ children }) => {
 
   const getRandom = (rewardType) => {
     if (!rewardType) {
-      rewardType = rewardTypes.Nice;
+      rewardType = rewardTypes.NICE;
     }
     const randomIndex = Math.floor(
       Math.random() * rewardLists[rewardType].length
@@ -133,21 +134,21 @@ export const RewardListContextProvider = ({ children }) => {
   const getRandomOrNo = () => {
     const rewardSlot = Math.random();
     if (rewardSlot < rewardSlots.NoReward / 100) {
-      return "This time your reward is the joy of job well done!";
+      return strings.JOY_REWARD;
     } else if (rewardSlot < rewardSlots.NiceReward / 100) {
-      return getRandom(rewardTypes.Nice);
+      return getRandom(rewardTypes.NICE);
     } else if (rewardSlot < rewardSlots.GoodReward / 100) {
-      return getRandom(rewardTypes.Good);
+      return getRandom(rewardTypes.GOOD);
     } else {
-      return getRandom(rewardTypes.Great);
+      return getRandom(rewardTypes.GREAT);
     }
   };
 
   const getSpecial = () => {
     if (Math.random() > 0.75) {
-      return getRandom(rewardTypes.Great);
+      return getRandom(rewardTypes.GREAT);
     } else {
-      return getRandom(rewardTypes.Special);
+      return getRandom(rewardTypes.SPECIAL);
     }
   };
 

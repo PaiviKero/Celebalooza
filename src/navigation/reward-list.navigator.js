@@ -4,6 +4,8 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import { RewardListScreen } from "../screens/reward-list.screen";
 import { RewardListContext } from "../services/reward-list.context";
 
+import { strings } from "../services/strings";
+
 const Tab = createMaterialTopTabNavigator();
 
 export const RewardListNavigator = () => {
@@ -13,7 +15,7 @@ export const RewardListNavigator = () => {
       {Object.keys(rewardTypes).map((rewardType) => {
         return (
           <Tab.Screen
-            name={rewardType}
+            name={strings[rewardType]}
             component={RewardListScreen}
             initialParams={{ rewardType: rewardType }}
           />

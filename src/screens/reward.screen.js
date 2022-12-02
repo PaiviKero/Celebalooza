@@ -10,6 +10,7 @@ import {
   SpecialRewardButton,
 } from "../styles/reward.styles";
 import { Spacer } from "../components/spacer-component";
+import { strings } from "../services/strings";
 
 export const RewardScreen = () => {
   const { getRandomReward, getRandomOrNoReward, getSpecialReward } =
@@ -21,23 +22,23 @@ export const RewardScreen = () => {
       <Spacer size="xxl">
         <RewardButton
           onPress={() => setReward(getRandomOrNoReward())}
-          title="I'm done! Is there a Reward ???"
+          title={strings.IS_REWARD_BUTTON}
         />
       </Spacer>
       <Spacer size="large">
         <RewardButton
           onPress={() => setReward(getRandomReward())}
-          title="I'm done! Give me a Nice Reward!"
+          title={strings.NICE_REWARD_BUTTON}
         />
       </Spacer>
       <Spacer size="large">
         <SpecialRewardButton
           onPress={() => setReward(getSpecialReward())}
-          title="I achieved something amazing today! I deserve a Special Reward!"
+          title={strings.SPECIAL_REWARD_BUTTON}
         />
       </Spacer>
       <Spacer size="xxl">
-        <Text>And your reward today is: </Text>
+        <Text>{strings.REWARD_RESULT}:</Text>
       </Spacer>
       <RewardItem label>{reward}</RewardItem>
     </RewardView>

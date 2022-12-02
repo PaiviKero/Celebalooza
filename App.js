@@ -1,10 +1,13 @@
 import { Navigation } from "./src/navigation";
 import { AuthenticationContextProvider } from "./src/services/authentication.context";
+import { LocalizationProvider } from "./src/services/localization.context";
 
 export default function App() {
   return (
-    <AuthenticationContextProvider>
-      <Navigation />
-    </AuthenticationContextProvider>
+    <LocalizationProvider>
+      <AuthenticationContextProvider>
+        <Navigation />
+      </AuthenticationContextProvider>
+    </LocalizationProvider>
   );
 }

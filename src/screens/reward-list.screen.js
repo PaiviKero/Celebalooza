@@ -13,6 +13,7 @@ import {
 import { Spacer } from "../components/spacer-component";
 
 import { RewardListContext } from "../services/reward-list.context";
+import { strings } from "../services/strings";
 
 export const RewardListScreen = ({ route }) => {
   const { rewardType } = route.params;
@@ -23,11 +24,13 @@ export const RewardListScreen = ({ route }) => {
   return (
     <RewardListView>
       <Spacer variant="small">
-        <TextItem>List of {rewardType} Rewards:</TextItem>
+        <TextItem>
+          {strings[rewardType]} {strings.REWARDS}:
+        </TextItem>
       </Spacer>
       <RowContainer>
         <RewardInput
-          label="New Reward"
+          label={strings.NEW_REWARD}
           value={reward}
           onChangeText={(t) => {
             setReward(t);
@@ -35,7 +38,7 @@ export const RewardListScreen = ({ route }) => {
         />
         <AddButton
           onPress={() => addToList(rewardTypes[rewardType], reward)}
-          title="Add"
+          title={strings.ADD}
         />
       </RowContainer>
       {
