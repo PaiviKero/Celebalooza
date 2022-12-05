@@ -1,19 +1,20 @@
 import { useContext } from "react";
 import { Text } from "react-native";
+import { RadioButton } from "react-native-paper";
 
 import { RewardListContext } from "../services/reward-list.context";
 import { LocalizationContext } from "../services/localization.context";
-import { RewardView, RewardButton, AddButton } from "../styles/reward.styles";
+import {
+  RewardView,
+  RewardButton,
+  RowContainer,
+} from "../styles/reward.styles";
 import { Spacer } from "../components/spacer-component";
 import { strings } from "../services/strings";
 
 export const SettingsScreen = () => {
   const { resetToDefault, clearLists } = useContext(RewardListContext);
   const { appLanguage, setAppLanguage } = useContext(LocalizationContext);
-
-  const handleSetLanguage = async (language) => {
-    setAppLanguage(language);
-  };
 
   return (
     <RewardView>
@@ -31,11 +32,17 @@ export const SettingsScreen = () => {
       </Spacer>
       <Spacer size="large">
         <Text>{strings.CHOOSE_LANGUAGE}:</Text>
-        {strings.getAvailableLanguages().map((item) => (
-          <Spacer size="small">
-            <AddButton onPress={() => handleSetLanguage(item)} title={item} />
-            {appLanguage === item ? <Text>√</Text> : null}
-          </Spacer>
+        {strings.getAvailableLanguages().map((language, i) => (
+          <RowContainer>
+            <RadioButton
+              value={language}
+              status={appLanguage === language ? "checked" : "unchecked"}
+              onPress={() => {
+                setAppLanguage(language);
+              }}
+            />
+            <Text>{language}</Text>
+          </RowContainer>
         ))}
       </Spacer>
     </RewardView>
