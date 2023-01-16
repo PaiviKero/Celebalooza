@@ -40,8 +40,37 @@ export const strings = new LocalizedStrings({
   },
   de: {
     REWARDS: "Belohnungen",
+    NEW_REWARD: "neue Belohnung",
+    NICE: "nette", //rewards
+    GOOD: "gute", //rewards
+    GREAT: "tolle", //rewards
+    SPECIAL: "besondere", //rewards
+    JOY_REWARD: "Diesmal ist Ihre Belohnung die Freude an der guten Arbeit!",
+    ADD: "Einfügen",
+    IS_REWARD_BUTTON: "Ich bin fertig! Gibt es eine Belohnung???",
+    NICE_REWARD_BUTTON: "Ich bin fertig! Geben Sie mir eine nette Belohnung!",
+    SPECIAL_REWARD_BUTTON:
+      "Ich habe heute etwas Erstaunliches erreicht! Ich verdiene eine besondere Belohnung!",
+    REWARD_RESULT: "Und Ihre Belohnung heute ist",
+    RESET_REWARDS_BUTTON: "Alle Belohnungslisten auf Standard zurücksetzen",
+    CLEAR_REWARDS_BUTTON: "Löschen Sie alle Belohnungslisten",
+    CHOOSE_LANGUAGE: "Wähle Ihre Sprache",
   },
   it: {
     REWARDS: "premi",
+    NEW_REWARD: "",
+    NICE: "", //rewards
+    GOOD: "", //rewards
+    GREAT: "", //rewards
+    SPECIAL: "", //rewards
+    JOY_REWARD: "",
+    ADD: "",
+    IS_REWARD_BUTTON: "",
+    NICE_REWARD_BUTTON: "",
+    SPECIAL_REWARD_BUTTON: "",
+    REWARD_RESULT: "",
+    RESET_REWARDS_BUTTON: "",
+    CLEAR_REWARDS_BUTTON: "",
+    CHOOSE_LANGUAGE: "",
   },
 });
