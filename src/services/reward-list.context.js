@@ -14,6 +14,10 @@ export const RewardListContextProvider = ({ children }) => {
     GREAT: "great",
     SPECIAL: "special",
   };
+  const niceCount = 15;
+  const goodCount = 6;
+  const greatCount = 2;
+  const specialCount = 1;
   const rewardSlots = {
     NoReward: 25, // 25% chance (0-25)
     NiceReward: 75, // 50% change (25-75)
@@ -21,39 +25,24 @@ export const RewardListContextProvider = ({ children }) => {
     GreatReward: 100, // 5% change (95-100)
   };
 
+  const createDefaultList = (count, type) => {
+    return Array.apply(null, { length: count })
+      .map(Number.call, Number)
+      .map((number) => {
+        return { key: "DEFAULT_" + type.toUpperCase() + "_" + (number + 1) };
+      });
+  };
+
   const setDefaultRewardLists = () => {
     setRewardLists(null);
     setRewardLists({
-      [rewardTypes.NICE]: [
-        { key: "Read a book" },
-        { key: "Do a nonogram" },
-        { key: "Go for a walk" },
-        { key: "Go for a bike ride / swim" },
-        { key: "Have a glass of smoothie" },
-        { key: "Have a glass of juice" },
-        { key: "Have a cup of yummy tea" },
-        { key: "Eat a fruit" },
-        { key: "Eat a protein bar" },
-        { key: "Listen to a song" },
-        { key: "Dance a bit" },
-        { key: "Relax in the warmth of the sun" },
-        { key: "Stretch a bit" },
-        { key: "Take a nap" },
-      ],
-      [rewardTypes.GOOD]: [
-        { key: "Cook your favorite meal" },
-        { key: "Eat a bit of ice-cream" },
-        { key: "Eat a bit of chocolate" },
-        { key: "Take a bath" },
-        { key: "Watch your favorite Netflix series" },
-        { key: "Watch a movie" },
-      ],
-
-      [rewardTypes.GREAT]: [
-        { key: "Go eat out" },
-        { key: "Buy something nice" },
-      ],
-      [rewardTypes.SPECIAL]: [{ key: "Book a Vacation" }],
+      [rewardTypes.NICE]: createDefaultList(niceCount, rewardTypes.NICE),
+      [rewardTypes.GOOD]: createDefaultList(goodCount, rewardTypes.GOOD),
+      [rewardTypes.GREAT]: createDefaultList(greatCount, rewardTypes.GREAT),
+      [rewardTypes.SPECIAL]: createDefaultList(
+        specialCount,
+        rewardTypes.SPECIAL
+      ),
     });
   };
 
@@ -128,7 +117,12 @@ export const RewardListContextProvider = ({ children }) => {
     const randomIndex = Math.floor(
       Math.random() * rewardLists[rewardType].length
     );
-    return rewardLists[rewardType][randomIndex].key;
+
+    let rewardString = rewardLists[rewardType][randomIndex].key;
+    if (rewardString.startsWith("DEFAULT_")) {
+      rewardString = strings[rewardString];
+    }
+    return rewardString;
   };
 
   const getRandomOrNo = () => {

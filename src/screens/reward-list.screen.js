@@ -48,7 +48,9 @@ export const RewardListScreen = ({ route }) => {
           }
           renderItem={({ item }) => (
             <RowContainer>
-              <RewardItem>{item.key}</RewardItem>
+              <RewardItem>
+                {strings[item.key] !== undefined ? strings[item.key] : item.key}
+              </RewardItem>
               <RemoveButton
                 onPress={() =>
                   removeFromList(rewardTypes[rewardType], item.key)
