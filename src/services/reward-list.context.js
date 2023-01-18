@@ -8,10 +8,15 @@ export const RewardListContext = createContext();
 export const RewardListContextProvider = ({ children }) => {
   const { user } = useContext(AuthenticationContext);
   const [rewardLists, setRewardLists] = useState(null);
+  const JUST_JOY_TYPE = "just_joy";
   const rewardTypes = {
     NICE: "nice",
     GOOD: "good",
     GREAT: "great",
+    SPECIAL: "special",
+  };
+  const slotTypes = {
+    NORMAL: "normal",
     SPECIAL: "special",
   };
   const niceCount = 15;
@@ -19,10 +24,16 @@ export const RewardListContextProvider = ({ children }) => {
   const greatCount = 2;
   const specialCount = 1;
   const rewardSlots = {
-    NoReward: 25, // 25% chance (0-25)
-    NiceReward: 75, // 50% change (25-75)
-    GoodReward: 95, // 20% change (75-95)
-    GreatReward: 100, // 5% change (95-100)
+    normal: [
+      { slot: 25, type: JUST_JOY_TYPE }, // 25% change
+      { slot: 75, type: rewardTypes.NICE }, // 50% change (75-25)
+      { slot: 95, type: rewardTypes.GOOD }, // 20% change (95-75)
+      { slot: 100, type: rewardTypes.GREAT }, // 5% change (100-95)
+    ],
+    special: [
+      { slot: 75, type: rewardTypes.GREAT }, // 75% change
+      { slot: 100, type: rewardTypes.SPECIAL }, // 25% change (100-75)
+    ],
   };
 
   const createDefaultList = (count, type) => {
@@ -110,40 +121,48 @@ export const RewardListContextProvider = ({ children }) => {
     setRewardLists({ ...rewardLists, [rewardType]: newRewardList });
   };
 
-  const getRandom = (rewardType) => {
+  const getRandomReward = (rewardType) => {
+    const getRewardString = (type, index) => {
+      let rewardString = rewardLists[type][index].key;
+      if (rewardString.startsWith("DEFAULT_")) {
+        rewardString = strings[rewardString];
+      }
+      return rewardString;
+    };
+
     if (!rewardType) {
       rewardType = rewardTypes.NICE;
     }
-    const randomIndex = Math.floor(
-      Math.random() * rewardLists[rewardType].length
-    );
-
-    let rewardString = rewardLists[rewardType][randomIndex].key;
-    if (rewardString.startsWith("DEFAULT_")) {
-      rewardString = strings[rewardString];
-    }
-    return rewardString;
-  };
-
-  const getRandomOrNo = () => {
-    const rewardSlot = Math.random();
-    if (rewardSlot < rewardSlots.NoReward / 100) {
+    if (rewardType === JUST_JOY_TYPE) {
       return strings.JOY_REWARD;
-    } else if (rewardSlot < rewardSlots.NiceReward / 100) {
-      return getRandom(rewardTypes.NICE);
-    } else if (rewardSlot < rewardSlots.GoodReward / 100) {
-      return getRandom(rewardTypes.GOOD);
+    }
+    if (rewardLists[rewardType].length > 0) {
+      const randomIndex = Math.floor(
+        Math.random() * rewardLists[rewardType].length
+      );
+
+      return getRewardString(rewardType, randomIndex);
     } else {
-      return getRandom(rewardTypes.GREAT);
+      return strings.ERROR_LIST_EMPTY;
     }
   };
 
-  const getSpecial = () => {
-    if (Math.random() > 0.75) {
-      return getRandom(rewardTypes.GREAT);
-    } else {
-      return getRandom(rewardTypes.SPECIAL);
-    }
+  const getRewardType = (level) => {
+    const rewardSlot = Math.random();
+    const rewardLevelSlots = rewardSlots[level];
+
+    const index = rewardLevelSlots.findIndex(
+      (slot) => rewardSlot * 100 < slot.slot
+    );
+    return rewardLevelSlots[index].type;
+  };
+
+  const getRandomOrNoReward = () => {
+    return getRandomReward(getRewardType(slotTypes.NORMAL));
+  };
+
+  const getSpecialReward = () => {
+    return getRandomReward(getRewardType(slotTypes.SPECIAL));
   };
 
   return (
@@ -153,12 +172,13 @@ export const RewardListContextProvider = ({ children }) => {
         rewardLists,
         addToList: add,
         removeFromList: remove,
-        getRandomReward: getRandom,
-        getRandomOrNoReward: getRandomOrNo,
+        getRandomReward,
+        getRandomOrNoReward,
         resetToDefault: setDefaultRewardLists,
         clearLists: clearRewardLists,
-        getSpecialReward: getSpecial,
+        getSpecialReward,
       }}
+      l
     >
       {children}
     </RewardListContext.Provider>

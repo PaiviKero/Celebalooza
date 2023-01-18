@@ -46,6 +46,8 @@ export const strings = new LocalizedStrings({
     DEFAULT_GREAT_2: "Buy something nice",
 
     DEFAULT_SPECIAL_1: "Book a Vacation",
+
+    ERROR_LIST_EMPTY: "Oops, your reward list is empty, please add some!",
   },
   fi: {
     REWARDS: "palkkiot",
@@ -93,6 +95,9 @@ export const strings = new LocalizedStrings({
     DEFAULT_GREAT_2: "Osta jotain kivaa",
 
     DEFAULT_SPECIAL_1: "Varaa lomamatka",
+
+    ERROR_LIST_EMPTY:
+      "Hups, palkkiolistasi on tyhjä, ole hyvä ja lisää palkkioita ensin",
   },
   de: {
     REWARDS: "Belohnungen",
@@ -139,6 +144,9 @@ export const strings = new LocalizedStrings({
     DEFAULT_GREAT_2: "Etwas Schönes kaufen",
 
     DEFAULT_SPECIAL_1: "Urlaub buchen",
+
+    ERROR_LIST_EMPTY:
+      "Hoppla, Ihre Belohnungsliste ist leer, bitte fügen Sie welche hinzu!",
   },
   it: {
     REWARDS: "Premi",
@@ -185,5 +193,8 @@ export const strings = new LocalizedStrings({
     DEFAULT_GREAT_2: "Compra qualcosa di carino",
 
     DEFAULT_SPECIAL_1: "Prenota una vacanza",
+
+    ERROR_LIST_EMPTY:
+      "Oops, la tua lista dei premi è vuota, per favore aggiungine qualcuno!",
   },
 });
