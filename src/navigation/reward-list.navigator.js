@@ -15,6 +15,7 @@ export const RewardListNavigator = () => {
       {Object.keys(rewardTypes).map((rewardType) => {
         return (
           <Tab.Screen
+            key={rewardType}
             name={strings[rewardType]}
             component={RewardListScreen}
             initialParams={{ rewardType: rewardType }}

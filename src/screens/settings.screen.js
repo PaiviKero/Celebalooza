@@ -33,7 +33,7 @@ export const SettingsScreen = () => {
       <Spacer size="large">
         <Text>{strings.CHOOSE_LANGUAGE}:</Text>
         {strings.getAvailableLanguages().map((language, i) => (
-          <RowContainer>
+          <RowContainer key={language}>
             <RadioButton
               value={language}
               status={appLanguage === language ? "checked" : "unchecked"}
