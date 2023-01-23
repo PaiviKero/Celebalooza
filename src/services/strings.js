@@ -18,6 +18,10 @@ export const strings = new LocalizedStrings({
     RESET_REWARDS_BUTTON: "Reset All Reward Lists to Defaults",
     CLEAR_REWARDS_BUTTON: "Clear All Reward Lists",
     CHOOSE_LANGUAGE: "Choose your language",
+    LOGIN: "Login",
+    LOGOUT: "Logout",
+    LOGIN_ID: "Username",
+    LOGIN_PASSWORD: "Password",
 
     DEFAULT_NICE_1: "Praise yourself!",
     DEFAULT_NICE_2: "Read a book",
@@ -67,6 +71,10 @@ export const strings = new LocalizedStrings({
     RESET_REWARDS_BUTTON: "Resetoi palkkiolistat oletuksiin",
     CLEAR_REWARDS_BUTTON: "Tyhjennä palkkiolistat",
     CHOOSE_LANGUAGE: "Valitse kieli",
+    LOGIN: "Login",
+    LOGOUT: "Logout",
+    LOGIN_ID: "Käyttäjätunnus",
+    LOGIN_PASSWORD: "Salasana",
 
     DEFAULT_NICE_1: "Kehu itseäsi!",
     DEFAULT_NICE_2: "Lue kirjaa",
@@ -116,6 +124,10 @@ export const strings = new LocalizedStrings({
     RESET_REWARDS_BUTTON: "Alle Belohnungslisten auf Standard zurücksetzen",
     CLEAR_REWARDS_BUTTON: "Löschen Sie alle Belohnungslisten",
     CHOOSE_LANGUAGE: "Wähle Ihre Sprache",
+    LOGIN: "Anmelden",
+    LOGOUT: "Abmelden",
+    LOGIN_ID: "Nutzername",
+    LOGIN_PASSWORD: "Passwort",
 
     DEFAULT_NICE_1: "Lob dich selbst!",
     DEFAULT_NICE_2: "Lies ein Buch",
@@ -165,6 +177,10 @@ export const strings = new LocalizedStrings({
     RESET_REWARDS_BUTTON: "Reimposta tutti i premi originali",
     CLEAR_REWARDS_BUTTON: "Cancella le liste dei premi",
     CHOOSE_LANGUAGE: "Scegli la tua lingua",
+    LOGIN: "Accedi",
+    LOGOUT: "Esci",
+    LOGIN_ID: "Nome utente",
+    LOGIN_PASSWORD: "Password",
 
     DEFAULT_NICE_1: "Loda te stesso",
     DEFAULT_NICE_2: "Leggi un libro",

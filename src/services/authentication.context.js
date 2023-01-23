@@ -6,6 +6,7 @@ import { LocalizationContext } from "../services/localization.context";
 export const AuthenticationContext = createContext();
 
 const LOGIN_KEY = "login_id";
+const PASSWORD_KEY = "login_password";
 
 export const AuthenticationContextProvider = ({ children }) => {
   const { initializeAppLanguage } = useContext(LocalizationContext);
@@ -19,14 +20,24 @@ export const AuthenticationContextProvider = ({ children }) => {
     loadUser();
   });
 
-  const onLogin = async () => {
-    if (!user) {
-      let loginAs = "defUser";
+  const onLogin = async (username, password) => {
+    if (username && password) {
+      let loginAs = username;
       setUser(loginAs);
       AsyncStorage.setItem(LOGIN_KEY, loginAs);
+      AsyncStorage.setItem(PASSWORD_KEY, password);
+      initializeAppLanguage();
+    } else {
+      setUser(null);
     }
+  };
 
-    initializeAppLanguage();
+  const logOut = () => {
+    if (user) {
+      setUser(null);
+      AsyncStorage.removeItem(LOGIN_KEY);
+      AsyncStorage.removeItem(PASSWORD_KEY);
+    }
   };
 
   return (
@@ -35,6 +46,7 @@ export const AuthenticationContextProvider = ({ children }) => {
         isAuthenticated: !!user,
         user,
         onLogin,
+        logOut,
       }}
     >
       {children}

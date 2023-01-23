@@ -4,6 +4,7 @@ import { RadioButton } from "react-native-paper";
 
 import { RewardListContext } from "../services/reward-list.context";
 import { LocalizationContext } from "../services/localization.context";
+import { AuthenticationContext } from "../services/authentication.context";
 import {
   RewardView,
   RewardButton,
@@ -15,6 +16,7 @@ import { strings } from "../services/strings";
 export const SettingsScreen = () => {
   const { resetToDefault, clearLists } = useContext(RewardListContext);
   const { appLanguage, setAppLanguage } = useContext(LocalizationContext);
+  const { logOut } = useContext(AuthenticationContext);
 
   return (
     <RewardView>
@@ -44,6 +46,9 @@ export const SettingsScreen = () => {
             <Text>{language}</Text>
           </RowContainer>
         ))}
+      </Spacer>
+      <Spacer size="large">
+        <RewardButton onPress={() => logOut()} title={strings.LOGOUT} />
       </Spacer>
     </RewardView>
   );
