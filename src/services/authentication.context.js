@@ -26,7 +26,7 @@ export const AuthenticationContextProvider = ({ children }) => {
       setUser(loginAs);
       AsyncStorage.setItem(LOGIN_KEY, loginAs);
       AsyncStorage.setItem(PASSWORD_KEY, password);
-      initializeAppLanguage();
+      initializeAppLanguage(username);
     } else {
       setUser(null);
     }

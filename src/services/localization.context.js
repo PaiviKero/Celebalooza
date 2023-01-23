@@ -1,8 +1,9 @@
 import { createContext, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import { strings } from "./strings";
 
-const APP_LANGUAGE_KEY = "appLanguage";
+const APP_LANGUAGE_KEY = "appLanguage_";
 
 export const LocalizationContext = createContext({
   strings,
@@ -16,20 +17,20 @@ export const LocalizationProvider = ({ children }) => {
     strings.getInterfaceLanguage()
   );
 
-  const setLanguage = (language) => {
+  const setLanguage = (user, language) => {
     strings.setLanguage(language);
     setAppLanguage(language);
-    AsyncStorage.setItem(APP_LANGUAGE_KEY, language);
+    AsyncStorage.setItem(APP_LANGUAGE_KEY + user, language);
   };
 
-  const initializeAppLanguage = async () => {
-    const currentLanguage = await AsyncStorage.getItem(APP_LANGUAGE_KEY);
+  const initializeAppLanguage = async (user) => {
+    const currentLanguage = await AsyncStorage.getItem(APP_LANGUAGE_KEY + user);
 
     if (!currentLanguage) {
       let localeCode = strings.getInterfaceLanguage();
-      setLanguage(localeCode);
+      setLanguage(user, localeCode);
     } else {
-      setLanguage(currentLanguage);
+      setLanguage(user, currentLanguage);
     }
   };
 
@@ -37,7 +38,7 @@ export const LocalizationProvider = ({ children }) => {
     <LocalizationContext.Provider
       value={{
         strings,
-        setAppLanguage: setLanguage,
+        setNewAppLanguage: setLanguage,
         appLanguage,
         initializeAppLanguage,
       }}

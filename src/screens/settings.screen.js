@@ -15,8 +15,8 @@ import { strings } from "../services/strings";
 
 export const SettingsScreen = () => {
   const { resetToDefault, clearLists } = useContext(RewardListContext);
-  const { appLanguage, setAppLanguage } = useContext(LocalizationContext);
-  const { logOut } = useContext(AuthenticationContext);
+  const { appLanguage, setNewAppLanguage } = useContext(LocalizationContext);
+  const { user, logOut } = useContext(AuthenticationContext);
 
   return (
     <RewardView>
@@ -40,7 +40,7 @@ export const SettingsScreen = () => {
               value={language}
               status={appLanguage === language ? "checked" : "unchecked"}
               onPress={() => {
-                setAppLanguage(language);
+                setNewAppLanguage(user, language);
               }}
             />
             <Text>{language}</Text>
